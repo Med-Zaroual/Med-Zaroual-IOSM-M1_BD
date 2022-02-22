@@ -1,0 +1,18 @@
+
+declare
+cursor c_seuil is select num_operation,nom_operation,montant from budget where categorie='débit'and montant>700;
+new_budget budget_seuil%rowtype;
+
+begin
+
+open c_seuil;
+fetch c_seuil into new_budget;
+
+while c_seuil %found loop
+	insert into budget_seuil values (new_budget.num_operation,new_budget.nom_operation,new_budget.montant);
+	fetch c_seuil into new_budget;
+	
+end loop;
+close c_seuil;
+end;
+/

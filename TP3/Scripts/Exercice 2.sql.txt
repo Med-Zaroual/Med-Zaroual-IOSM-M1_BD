@@ -1,0 +1,27 @@
+declare 
+
+cursor c_courses is select num_operation,nom_operation,categorie,date_operation,montant
+ from budget where nom_operation='courses';
+vnum_operation budget.num_operation%type;
+vnom_operation budget.nom_operation%type;
+v_categorie budget.categorie%type;
+vdate_operation budget.date_operation%type;
+v_montant budget.montant%type;
+--var_courses courses%rowtype;
+
+begin
+
+open c_courses;
+fetch c_courses into vnum_operation,vnom_operation,v_categorie,vdate_operation,v_montant;
+
+while c_courses %found loop
+	insert into courses values (vnum_operation,vnom_operation,v_categorie,vdate_operation,v_montant);
+	fetch c_courses into vnum_operation,vnom_operation,v_categorie,vdate_operation,v_montant;
+	
+end loop;
+close c_courses;
+end;
+/
+
+
+

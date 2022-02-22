@@ -1,0 +1,20 @@
+
+declare 
+
+cursor cursor_seuil(seuil Number) is select num_operation,DATE_OPERATION,montant from budget where categorie='Debit' and montant>seuil;
+new_budget budget_seuil%rowtype;
+
+begin
+
+open cursor_seuil(500);
+
+fetch cursor_seuil into new_budget;
+
+while cursor_seuil %found loop
+	insert into budget_seuil values (new_budget.num_operation,new_budget.DATE_OPERATION,new_budget.montant);
+	fetch cursor_seuil into new_budget;
+	
+end loop;
+close cursor_seuil;
+end;
+/

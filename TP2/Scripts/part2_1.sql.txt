@@ -1,0 +1,14 @@
+create view EMP_Manager as select ename,job,hiredate,sal,comm from emp;
+
+create view dept_boston as select * from dept where upper(loc)=upper('boston');
+
+create view managers as select * from emp where empno in (select mgr from emp);
+
+create view show_emp as select ename,job,hiredate,sal,comm from emp;
+
+create view show_emp2 as select ename as "Nom de l'Employe",job as "profession",hiredate as "dateEmb",sal as  "salaire",comm as "commission" from emp;
+
+-create view liste_salaire as select distinct(sal),count(sal) as "nbre de clients" from emp group by sal;
+-select sal from liste_salaire where sal>2000;
+
+create view liste_employe as select e.ename,e.job,e.deptno,d.loc from emp e,dept d where e.deptno=d.deptno;

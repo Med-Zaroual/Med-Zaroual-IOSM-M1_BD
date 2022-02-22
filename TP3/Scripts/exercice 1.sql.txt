@@ -1,0 +1,19 @@
+declare
+
+VNum_operation budget.num_operation%type;
+v_solde budget.Solde%type;
+
+begin
+
+select max(num_operation) into VNum_operation from budget;
+select solde into v_solde from budget where num_operation=VNum_operation;
+
+insert into budget values (VNum_operation+1,'courses','Debit','14/01/2002',500,v_solde-500);
+
+end;
+/
+
+
+
+
+

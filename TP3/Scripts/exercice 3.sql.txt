@@ -1,0 +1,18 @@
+declare
+cursor c_euro is select * from budget where date_operation>'01/01/2002';
+new_budget budget_euro%rowtype;
+
+begin
+
+open c_euro;
+fetch c_euro into new_budget;
+
+while c_euro %found loop
+	insert into budget_euro values (new_budget.num_operation,new_budget.nom_operation,new_budget.categorie,
+	new_budget.date_operation,new_budget.montant*11,new_budget.solde);
+	fetch c_euro into new_budget;
+	
+end loop;
+close c_euro;
+end;
+/
